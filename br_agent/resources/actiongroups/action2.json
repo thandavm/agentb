@@ -1,0 +1,60 @@
+{
+"openapi": "3.0.0",
+    "info": {
+        "title": "Pet Management API",
+        "version": "1.0.0",
+        "description": "APIs for managing pets that are for adoption."
+    },
+    "paths": {
+        "/pets": {
+            "get": {
+                "summary": "Return the number of the pets",
+                "description": "Return the number of the pets",
+                "operationId": "getCountofPets",
+                "responses": {
+                    "200": {
+                        "description": "Gets the number of all pets",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "petcount": {
+                                            "type": "string",
+                                            "description": "Pet count."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pets/{petid}": {
+            "get": {
+                "summary": "Return the name of the pet for the id specified",
+                "description": "Return the name of the pet for the id specified",
+                "operationId": "getPetName",
+                "responses": {
+                    "200": {
+                        "description": "Gets the name of the pet",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "petcount": {
+                                            "type": "string",
+                                            "description": "pet name."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }    
+}
