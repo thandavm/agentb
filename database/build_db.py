@@ -32,9 +32,9 @@ conn.commit()
 conn.close()
 
 ## persist in to an s3 bucket
-s3 = boto3.client('s3')
-bucket = 'br-llm-agents'
-s3.upload_file('pets.db', bucket, 'pets.db')
+#s3 = boto3.client('s3')
+#bucket = 'br-llm-agents'
+#s3.upload_file('pets.db', bucket, 'pets.db')
 
 
 # c.execute("SELECT * FROM pets")

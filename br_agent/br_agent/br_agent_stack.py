@@ -33,17 +33,20 @@ class BrAgentStack(Stack):
         
         # 2. parameter to store bucket name, 
         ssm_param_bucket = StringParameter(self, "bucket_name_param",
-                                    parameter_name="/br_agent/bucket_name",
-                                    string_value=bucket_name)
+            parameter_name="/br_agent/bucket_name",
+            string_value=bucket_name)
         
         ssm_param_sqlite = StringParameter(self, "sqlite_db_name",
-                            parameter_name="/br_agent/sqlite_db_name",
-                            string_value="database/pets.db")
+            parameter_name="/br_agent/sqlite_db_name",
+            string_value="database/pets.db")
         
         ssm_param_dynamotbl = StringParameter(self, "dynamo_table",
-                    parameter_name="/br_agent/dynamo_table",
-                    string_value="pets")
+            parameter_name="/br_agent/dynamo_table",
+            string_value="BreedInfoForPetStore")
         
+        ssm_param_petstore = StringParameter(self, "pet_store_online",
+            parameter_name="/br_agent/petstore_online_url",
+            string_value="https://petstore.swagger.io/v2/pet/findByStatus?status=available")
         
         # 3. Run set up lambda to set up tables
         ## Lambda role
@@ -94,17 +97,17 @@ class BrAgentStack(Stack):
         )
         
         # Run google search lambda to retrieve information
-        lambda_search = _lambda.Function(
-            self, 'lambda_search',
+        lambda_dynamo = _lambda.Function(
+            self, 'lambda_dynamo',
             runtime=_lambda.Runtime.PYTHON_3_9,
             code = _lambda.Code.from_asset('lambda'),
-            handler='lambda_search.lambda_handler',
+            handler='lambda_dynamo.lambda_handler',
             timeout=Duration.seconds(300),
             role=lambda_action_role
         )
         
         policy_statement_search  = iam.PolicyStatement(
             actions=["lambda:InvokeFunction"],
-            resources=[lambda_search.function_arn],
+            resources=[lambda_dynamo.function_arn],
             principals=[principal]
         )

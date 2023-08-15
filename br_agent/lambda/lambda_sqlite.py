@@ -37,7 +37,6 @@ def total_pets(cursor):
     print(count1)
     return count1    
     
-    
 def get_pet_name(cursor, id):
     print("in get_pet_name")
     print(id)
